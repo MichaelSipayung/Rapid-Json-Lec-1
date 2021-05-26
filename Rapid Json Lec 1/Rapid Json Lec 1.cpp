@@ -31,7 +31,7 @@ int main()
 	rapidjson::StringBuffer buf;
 	rapidjson::Writer<rapidjson::StringBuffer> writerTest(buf);
 	test.Accept(writerTest);
-	std::cout << " test reading cmake configuration.json" << std::endl;
+	std::cout << " test reading cmake configuration.json , test" << std::endl;
 	std::cout << buf.GetString() << std::endl;
 
 

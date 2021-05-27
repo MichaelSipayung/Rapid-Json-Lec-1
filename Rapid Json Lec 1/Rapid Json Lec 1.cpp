@@ -149,8 +149,53 @@ int main()
 		std::cout << "sorry both member point to different value" << std::endl;
 	}
 
+	std::cout << "Move Semantic" << std::endl;
+	doc["hello"] = test["name"];
+	std::cout << "Make it null" << std::endl;
+
+	assert(test["name"].IsNull());//success assertion 
+	std::cout << "After copying the value \t: [" << test["name"].GetType() << "]" << std::endl;
+
+	//default contructor is null
+	rapidjson::Document assign;
+	assert(assign.IsNull());
+	assign.SetObject();
+	rapidjson::Value v(12);//overloaded  constructor
+	assert(v.IsInt());
+	rapidjson::Value vDoub(12.089);//overloaded  constructor
+	assert(vDoub.IsDouble());
+
+	rapidjson::Document deF;
+	rapidjson::Value oVal(rapidjson::kObjectType);
+	rapidjson::Value contacts(rapidjson::kArrayType);
+	rapidjson::Value address(rapidjson::kStringType);
+	rapidjson::Value age(rapidjson::kNumberType);
+
+	oVal.AddMember("contact", contacts, deF.GetAllocator()); // adding member to the object 
+	oVal.AddMember("address", address, deF.GetAllocator());
+	oVal.AddMember("age", age, deF.GetAllocator());
+
+	assert(oVal.HasMember("contact")); //success assertion
+	assert(oVal.HasMember("address")); //success assertion
+	oVal["address"].SetString("River Fl Street no.98");
+	std::cout << "Show address\t: [" << oVal["address"].GetString() << "]" << std::endl;
+
+	//initialized an array 
+	rapidjson::Document::AllocatorType& alloc = deF.GetAllocator();
+	oVal["contact"].PushBack(12, alloc);
+	oVal["contact"].PushBack(98, alloc);
+	oVal["contact"].PushBack(13, alloc);
+	std::cout << "resul after push back \t:[";
+	for (auto& i : oVal["contact"].GetArray())
+	{
+		std::cout << i.GetInt() << "|";
+	}
+	std::cout << "]" << std::endl;
+	
+	oVal["age"].SetInt(90);
+	std::cout << "indirect access\t:[" << oVal["age"].GetInt() << "]" << std::endl;
 
 
-
+	
 	return 0;
 }

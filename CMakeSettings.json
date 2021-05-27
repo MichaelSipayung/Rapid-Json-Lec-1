@@ -9,7 +9,14 @@
       "installRoot": "${projectDir}\\out\\install\\${name}",
       "cmakeCommandArgs": "",
       "buildCommandArgs": "",
-      "ctestCommandArgs": ""
+      "ctestCommandArgs": "",
+      "variables": [
+        {
+          "name": "mathgl_DIR",
+          "value": "mathgl_DIR-NOTFOUND",
+          "type": "PATH"
+        }
+      ]
     }
   ]
 }

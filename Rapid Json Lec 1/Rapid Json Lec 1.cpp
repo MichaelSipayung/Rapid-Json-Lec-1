@@ -10,6 +10,7 @@ int main()
 	const char* json = "{\"project\":\"rapidjson\",\"stars\":10}";
 	rapidjson::Document d;
 	d.Parse(json);
+	
 
 	//2.modify it  by dom 
 	rapidjson::Value& s = d["stars"];
@@ -114,6 +115,41 @@ int main()
 	for (auto& i : doc.GetObject()) {
 		std::cout << "Object \t:[ " << i.name.GetString() << "|" << kTypeNames[i.value.GetType()] <<std::endl;
 	}
+
+	//querying number
+	const char* num = "{\"age\":32,\"phone\":87888}";
+	const char* numberTest = "{\"number Phone\":[987641,876123,12313,131231]}";
+
+	rapidjson::Document testNumPa;
+	testNumPa.Parse(num);
+	rapidjson::Document testNumPa2;
+	testNumPa2.Parse(numberTest);
+	assert(testNumPa2["number Phone"].IsArray());
+	assert(testNumPa["age"].IsNumber());
+	assert(testNumPa["age"].IsInt());
+
+	
+	std::cout << "SHow integer value \t: [" << testNumPa["age"].GetInt() << "]" << std::endl;
+	std::cout << "Number Phone\t:[ ";
+	for (auto& numPhone : testNumPa2["number Phone"].GetArray())
+	{
+		std::cout << numPhone.GetInt() << "|";
+	}
+	std::cout << "]" << std::endl;
+	assert(doc["hello"].IsString());
+	//after test pass , write the length 
+	std::cout << "get string length \t: [" << doc["hello"].GetStringLength() <<"\t value :"<< doc["hello"].GetString() << "]" << std::endl;
+	
+	std::cout << "Comparing the value " << std::endl;
+	if (doc["hello"].GetString() == test["name"].GetString())
+	{
+		std::cout << "the current member point to the same  object" << std::endl;
+	}
+	else {
+		std::cout << "sorry both member point to different value" << std::endl;
+	}
+
+
 
 
 	return 0;
